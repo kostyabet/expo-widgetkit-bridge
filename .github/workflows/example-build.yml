@@ -49,10 +49,13 @@ jobs:
       - name: xcodebuild
         working-directory: example/ios
         run: |
-          xcodebuild -workspace ExpoWidgetkitBridgeExample.xcworkspace \
-            -scheme ExpoWidgetkitBridgeExample \
+          WORKSPACE=$(ls -d *.xcworkspace | head -1)
+          SCHEME=$(xcodebuild -workspace "$WORKSPACE" -list -json | node -e "const j=JSON.parse(require('fs').readFileSync(0,'utf8'));console.log(j.workspace.schemes[0])")
+          echo "Using workspace=$WORKSPACE scheme=$SCHEME"
+          xcodebuild -workspace "$WORKSPACE" \
+            -scheme "$SCHEME" \
             -configuration Debug \
             -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
             CODE_SIGNING_ALLOWED=NO \
-            build | xcpretty
+            build
