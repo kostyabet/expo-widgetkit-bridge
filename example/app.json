@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "expo-widgetkit-bridge-example",
+    "slug": "expo-widgetkit-bridge-example",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.kostyabet.expoWidgetkitBridgeExample",
+      "supportsTablet": true
+    },
+    "plugins": ["expo-dev-client"]
+  }
+}
