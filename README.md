@@ -7,6 +7,10 @@
 ![Platform](https://img.shields.io/badge/platform-iOS%2014%2B-lightgrey)
 ![Expo](https://img.shields.io/badge/Expo_SDK-54%2B-000020)
 
+<p align="center">
+  <img src="./hero.png" alt="expo-widgetkit-bridge — reload iOS home & lock screen widgets from React Native" width="880" />
+</p>
+
 <h3>A tiny bridge from <a href="https://reactnative.dev/">React Native</a> / <a href="https://expo.dev/">Expo</a> to Apple's <a href="https://developer.apple.com/documentation/widgetkit/widgetcenter">WidgetKit</a> — force home & lock screen widgets to reload their timeline from JavaScript.</h3>
 
 ## Features
