@@ -80,7 +80,10 @@ jobs:
         working-directory: example/ios
         run: |
           WORKSPACE=$(ls -d *.xcworkspace | head -1)
-          SCHEME=$(xcodebuild -workspace "$WORKSPACE" -list -json | node -e "const j=JSON.parse(require('fs').readFileSync(0,'utf8'));console.log(j.workspace.schemes[0])")
+          # The app scheme always matches the workspace name in Expo prebuild output.
+          # xcodebuild -list also returns pod schemes (EXConstants, Pods-*, …) which
+          # do not have iOS simulator destinations, so we cannot just pick schemes[0].
+          SCHEME=$(basename "$WORKSPACE" .xcworkspace)
           echo "Using workspace=$WORKSPACE scheme=$SCHEME"
           xcodebuild -workspace "$WORKSPACE" \
             -scheme "$SCHEME" \
