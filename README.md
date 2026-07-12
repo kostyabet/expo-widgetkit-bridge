@@ -57,6 +57,9 @@ import {
   reloadAllTimelines,
   reloadTimelines,
   getCurrentConfigurations,
+  isLockScreenSupported,
+  getLockScreenConfigurations,
+  hasWidget,
 } from 'expo-widgetkit-bridge';
 
 // After you save new data that the widget renders:
@@ -68,6 +71,19 @@ reloadTimelines('ScheduleWidget');
 // Show which widgets the user has installed:
 const installed = await getCurrentConfigurations();
 // [{ kind: 'ScheduleWidget', family: 'systemMedium' }, ...]
+
+// Lock Screen widgets are iOS 16+ only. Gate any onboarding UI:
+if (isLockScreenSupported()) {
+  const lock = await getLockScreenConfigurations();
+  if (lock.length === 0) {
+    // Suggest the user to add a Lock Screen widget.
+  }
+}
+
+// Quick shorthand: is any widget of this kind installed?
+if (await hasWidget('ScheduleWidget')) {
+  // …
+}
 ```
 
 ## API reference
@@ -77,6 +93,11 @@ const installed = await getCurrentConfigurations();
 | `reloadAllTimelines` | `() => void` | Calls `WidgetCenter.shared.reloadAllTimelines()`. |
 | `reloadTimelines` | `(kind: string) => void` | Calls `WidgetCenter.shared.reloadTimelines(ofKind:)`. |
 | `getCurrentConfigurations` | `() => Promise<WidgetInfo[]>` | Wraps `WidgetCenter.shared.getCurrentConfigurations`. Resolves `[]` on iOS < 14 and non-iOS platforms. |
+| `isLockScreenSupported` | `() => boolean` | `true` only on iOS ≥ 16 (where accessory families are available). |
+| `getLockScreenConfigurations` | `() => Promise<WidgetInfo[]>` | Filtered `getCurrentConfigurations()` — only accessory families. |
+| `getHomeScreenConfigurations` | `() => Promise<WidgetInfo[]>` | Filtered `getCurrentConfigurations()` — excludes accessory families. |
+| `hasWidget` | `(kind: string) => Promise<boolean>` | `true` if any widget of that `kind` is installed. |
+| `getFamiliesForKind` | `(kind: string) => Promise<WidgetFamily[]>` | Families the user picked for that `kind`. |
 
 ```ts
 type WidgetFamily =
