@@ -1,6 +1,6 @@
 {
   "name": "expo-widgetkit-bridge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reload iOS home & lock screen widgets from React Native / Expo. A one-call bridge to WidgetKit's reloadAllTimelines and reloadTimelines(ofKind:).",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -41,7 +41,6 @@
   "files": [
     "build",
     "ios",
-    "*.podspec",
     "expo-module.config.json"
   ],
   "peerDependencies": {
